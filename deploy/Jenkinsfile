@@ -4,8 +4,14 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                sh 'zip -r /var/lib/jenkins/nvnhan0810.com-zip.zip .'
                 sshagent (credentials: ['Azdigi-VPS-SSH']) {
-                    sh 'ssh -o StrictHostKeyChecking=no root@116.118.49.239 \"cd /var/www/html/nvnhan0810.com && ./deploy/build.sh\"'
+                    sh 'ssh -o StrictHostKeyChecking=no root@116.118.49.239 \"rm -rf /var/www/html/nvnhan0810.com-zip.zip && mv /var/lib/jenkins/nvnhan0810.com-zip.zip /var/www/html/\"'
+                    sh 'ssh -o StrictHostKeyChecking=no root@116.118.49.239 \"rm -rf /var/www/html/nvnhan0810.com-zip && mkdir /var/www/html/nvnhan0810.com-zip\"'
+                    sh 'ssh -o StrictHostKeyChecking=no root@116.118.49.239 \"cd /var/www/html/ && unzip nvnhan0810.com-zip -d nvnhan0810.com-zip\"'
+                    sh 'ssh -o StrictHostKeyChecking=no root@116.118.49.239 \"cd /var/www/html/ && rm -rf nvnhan0810.com/\"'
+                    sh 'ssh -o StrictHostKeyChecking=no root@116.118.49.239 \"cd /var/www/html/ && cp -rTf nvnhan0810.com-zip nvnhan0810.com\"'
+                    sh 'ssh -o StrictHostKeyChecking=no root@116.118.49.239 \"cd /var/www/html/nvnhan0810.com && sh deploy/build.sh\"'
                 }
             }
         }
@@ -16,6 +22,7 @@ pipeline {
                     sh 'ssh -o StrictHostKeyChecking=no root@116.118.49.239 \"cd /var/www/html/nvnhan0810.com && php artisan optimize:clear && php artisan optimize\"'
                     sh 'ssh -o StrictHostKeyChecking=no root@116.118.49.239 \"cd /var/www/html/nvnhan0810.com &&  cp ./deploy/nginx.conf /etc/nginx/config.d/nvnhan0810.com.conf\"'
                     sh 'ssh -o StrictHostKeyChecking=no root@116.118.49.239 \"cd /var/www/html/nvnhan0810.com &&  nginx -t && sudo systemctl reload nginx\"'
+                    sh 'ssh -o StrictHostKeyChecking=no root@116.118.49.239 \"cd /var/www/html/ && sudo rm -rf nvnhan0810.com-zip*\"'
                 }
             }
         }
