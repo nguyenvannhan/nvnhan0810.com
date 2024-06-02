@@ -22,6 +22,7 @@ pipeline {
                     sh 'ssh -o StrictHostKeyChecking=no root@116.118.49.239 \"cd /var/www/html/nvnhan0810.com && php artisan config:clear && php artisan route:clear && php artisan view:clear && php artisan optimize\"'
                     sh 'ssh -o StrictHostKeyChecking=no root@116.118.49.239 \"cd /var/www/html/nvnhan0810.com &&  cp ./deploy/nginx.conf /etc/nginx/conf.d/nvnhan0810.com.conf\"'
                     sh 'ssh -o StrictHostKeyChecking=no root@116.118.49.239 \"cd /var/www/html/nvnhan0810.com &&  nginx -t && sudo systemctl reload nginx\"'
+                    sh 'ssh -o StrictHostKeyChecking=no root@116.118.49.239 \"cd /var/www/html/ && sudo chown nginx:nginx -R nvnhan0810.com\"'
                     sh 'ssh -o StrictHostKeyChecking=no root@116.118.49.239 \"cd /var/www/html/ && sudo rm -rf nvnhan0810.com-zip*\"'
                 }
             }
