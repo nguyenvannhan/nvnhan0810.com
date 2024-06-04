@@ -1,4 +1,5 @@
 import.meta.glob([
+    '../files/**',
     '../images/**',
     '../svgs/**',
 ]);
