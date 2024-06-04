@@ -3,6 +3,8 @@ const config = {
     darkMode: ["class"],
     content: [
         './resources/views/**/*.blade.php',
+        './resources/**/*.js',
+        "./node_modules/flowbite/**/*.js"
     ],
     prefix: "",
     theme: {
@@ -73,6 +75,7 @@ const config = {
     plugins: [
         require("tailwindcss-animate"),
         require("@tailwindcss/typography"),
+        require('flowbite/plugin'),
     ],
 };
 
