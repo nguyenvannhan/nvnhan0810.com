@@ -34,7 +34,7 @@
         <hr class="my-8" />
 
         <div class="my-8">
-            <div class="container grid grid-cols-3 gap-6 mb-8">
+            <div class="container grid md:grid-cols-3 gap-6 mb-8">
                 <div class="flex flex-col border rounded-md gap-4 p-4 cursor-pointer">
                     <div class="flex gap-2 justify-center items-center">
                         <img class="h-16 w-auto" src="{{ Vite::asset('resources/images/laravel-logo.png') }}" />
